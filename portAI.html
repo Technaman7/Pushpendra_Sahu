@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pushpendra Sahu | Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: var(--card-bg);
+            border: none;
+            border-radius: 50%;
+            width: 40px; /* Reduced size */
+            height: 40px; /* Reduced size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .toggle-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 20px; /* Adjusted size */
+            height: 20px; /* Adjusted size */
+        }
+
+        .toggle-icon .moon,
+        .toggle-icon .sun {
+            position: absolute;
+            font-size: 1.2rem; /* Adjusted size */
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .toggle-icon .moon {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toggle-icon .sun {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        body.dark-theme .toggle-icon .moon {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        body.dark-theme .toggle-icon .sun {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stats Section */
+        #stats {
+            padding: 4rem 2rem;
+            background-color: var(--section-bg);
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: 12px; /* Slightly rounded corners */
+            padding: 2rem; /* Increased padding for better spacing */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 350px; /* Increased width for better visibility */
+            text-align: center;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Enhanced hover effect */
+        }
+
+        .stat-card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to images */
+        }
+
+        .stat-card h3 {
+            font-size: 1.5rem; /* Larger heading for better readability */
+            color: var(--primary); /* Use primary color for headings */
+            margin-bottom: 1rem;
+        }
+
+        .stat-card p {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-top: 0.5rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--navbar-bg);
+            color: var(--text-color);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: var(--card-bg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Mobile Menu */
+        .nav-links.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--navbar-bg);
+            width: 100%;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            gap: 1rem;
+        }
+
+        .nav-links.active a {
+            padding: 0.5rem 0;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 6rem; /* Add padding to prevent overlap with the navbar */
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .hero-img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column; /* Stack content vertically on smaller screens */
+                padding-top: 7rem; /* Adjust padding for mobile devices */
+            }
+
+            .hero-img {
+                width: 80%; /* Adjust image size for smaller screens */
+            }
+        }
+
+        .hero-buttons {
+            margin-bottom: 1.5rem; /* Add spacing between buttons and social links */
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: scale(1.2); /* Slight zoom effect on hover */
+        }
+
+        .social-links img {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links img:hover {
+            transform: scale(1.2); /* Slight zoom effect on hover for images */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#home" class="logo">Pushpendra Sahu</a>
+        <div class="nav-links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#resume">Resume</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+            <div class="toggle-icon">
+                <span class="moon">🌙</span>
+                <span class="sun">☀️</span>
+            </div>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    Hi, I'm <span class="name">Pushpendra Sahu</span>
+                </h1>
+                <p>I'm a passionate Cloud and DevOps Engineer. I love turning ideas into reality through code.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                    <a href="https://leetcode.com/your-profile" target="_blank" class="leetcode-icon" title="LeetCode">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" alt="LeetCode" style="width: 24px; height: 24px;">
+                    </a>
+                </div>
+            </div>
+            <div class="hero-img">
+                <img src="Assest/images/Hero_img.png" alt="Pushpendra Sahu">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="section-title">
+            <h2>About Me</h2>
+            <p>Get to know me better and my journey so far</p>
+        </div>
+        <div class="about-content">
+            <div class="about-img">
+                <img src="Assest/images/about.jpg" alt="About Me">
+            </div>
+            <div class="about-text">
+                <h3>Web Developer & Problem Solver</h3>
+                <p>I am a passionate Cloud & DevOps engineer, currently in my B.Tech 2nd year, exploring AWS, DevOps, and cutting-edge technologies</p>
+               
+                <p>When I'm not coding, you'll find me exploring new hiking trails, reading tech blogs, or experimenting with new recipes in the kitchen.</p>
+                <a href="#contact" class="btn">Let's Connect</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <div class="section-title">
+            <h2>My Skills</h2>
+            <p>Technologies and tools I work with</p>
+        </div>
+        <div class="skills-container">
+            <div class="skill-card">
+                <i class="fab fa-html5"></i>
+                <h3>Frontend Development</h3>
+                <p>HTML5, CSS3, JavaScript, React, Bootstrap, Tailwind CSS</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-server"></i>
+                <h3>Backend Development</h3>
+                <p>Node.js, Express, Python, Django, PHP, Laravel, RESTful APIs</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-database"></i>
+                <h3>Database</h3>
+                <p>MongoDB, MySQL, PostgreSQL, Firebase, Redis</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-code-branch"></i>
+                <h3>Version Control</h3>
+                <p>Git, GitHub, GitLab</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-cloud"></i>
+                <h3>Deployment</h3>
+                <p>AWS, Netlify, Vercel, Docker</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-tools"></i>
+                <h3>Tools</h3>
+                <p>VS Code, Postman, IntelliJ IDEA, Chrome DevTools</p>
+            </div>
+            <!-- New DevOps Skill Card -->
+            <div class="skill-card">
+                <i class="fas fa-cogs"></i>
+                <h3>DevOps</h3>
+                <p>CI/CD, Jenkins, Kubernetes, Ansible, Terraform</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="section-title">
+            <h2>My Projects</h2>
+            <p>Some of my recent work</p>
+        </div>
+        <div class="projects-container">
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="/api/placeholder/400/200" alt="Project 1">
+                </div>
+                <div class="project-content">
+                    <h3>E-Commerce Website</h3>
+                    <p>A fully responsive e-commerce website with product catalog, shopping cart, and payment integration.</p>
+                    <div class="project-links">
+                        <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        <a href="#"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="Assest/images/uit2.png" alt="Project 2">
+                </div>
+                <div class="project-content">
+                    <h3>UIT Campus Portal</h3>
+                    <p>UIT Campus Portal with event listing functionality, user authentication, and real-time updates.</p>
+                    <div class="project-links">
+                        <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        <a href="#"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="/api/placeholder/400/200" alt="Project 3">
+                </div>
+                <div class="project-content">
+                    <h3>Weather Dashboard</h3>
+                    <p>A weather dashboard that displays current weather conditions and forecasts for multiple locations.</p>
+                    <div class="project-links">
+                        <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        <a href="#"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section" id="stats">
+        <div class="section-title">
+            <h2>My Stats</h2>
+            <p>Check out my coding activity and achievements</p>
+        </div>
+        <div class="stats-container">
+            <!-- GitHub Stats -->
+            <div class="stat-card">
+                <h3>GitHub Stats</h3>
+                <img src="https://github-readme-stats.vercel.app/api?username=Pushpendra24-7&show_icons=true&theme=radical" alt="GitHub Stats">
+            </div>
+            
+            <!-- LeetCode Stats -->
+            <div class="stat-card">
+                <h3>LeetCode Stats</h3>
+                <img src="https://leetcard.jacoblin.cool/Pushpendra24_7?theme=dark&font=baloo&ext=heatmap" alt="LeetCode Stats">
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section class="section" id="resume">
+        <div class="section-title">
+            <h2>My Resume</h2>
+            <p>My education and work experience</p>
+        </div>
+        <div class="resume-container">
+            <div class="resume-left">
+                <h3>Education</h3>
+                <div class="resume-item">
+                    <h3>Master of Computer Science</h3>
+                    <span class="date">2018 - 2020</span>
+                    <p>ABC University</p>
+                    <p>Specialized in Web Technologies and Software Engineering</p>
+                </div>
+                <div class="resume-item">
+                    <h3>Bachelor of Computer Science</h3>
+                    <span class="date">2023 - 2027</span>
+                    <p>UIT Rgpv</p>
+                    <p>Focused on Programming Fundamentals and Data Structures</p>
+                </div>
+            </div>
+            <div class="resume-right">
+                <h3>Experience</h3>
+                <div class="resume-item">
+                    <h3>Senior Full Stack Developer</h3>
+                    <span class="date">2022 - Present</span>
+                    <p>Tech Solutions Inc.</p>
+                    <p>Leading development of enterprise web applications, mentoring junior developers, and implementing best practices.</p>
+                </div>
+                <div class="resume-item">
+                    <h3>Full Stack Developer</h3>
+                    <span class="date">2020 - 2022</span>
+                    <p>Digital Innovations Ltd.</p>
+                    <p>Developed and maintained multiple web applications, collaborated with cross-functional teams, and implemented new features.</p>
+                </div>
+                <div class="resume-item">
+                    <h3>Frontend Developer Intern</h3>
+                    <span class="date">2019 - 2020</span>
+                    <p>Web Studios</p>
+                    <p>Assisted in building responsive user interfaces and worked on improving website performance.</p>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="Assest/my resume (2).pdf" class="btn">Download CV <i class="fas fa-download"></i></a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="section-title">
+            <h2>Contact Me</h2>
+            <p>Feel free to reach out to me for collaborations or just a friendly chat!</p>
+        </div>
+        <div class="contact-container">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <div class="contact-info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Phone</h3>
+                    <p>+123 456 7890</p>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>Pushpendra.cloud@gmail.com</p>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Location</h3>
+                    <p>Gwalior(M.p.), India</p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Pushpendra Sahu. All Rights Reserved.</p>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>Designed with <i class="fas fa-heart" style="color: var(--primary);"></i> by Pushpendra Sahu</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', function () {
+            navLinks.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', function () {
+                navLinks.classList.remove('active');
+                const icon = hamburger.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Basic validation
+            if (!name || !email || !subject || !message) {
+                alert('Please fill out all fields before submitting the form.');
+                return;
+            }
+
+            // Email format validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            // Message length validation
+            if (message.length < 10) {
+                alert('Message should be at least 10 characters long.');
+                return;
+            }
+
+            // Simulate form submission
+            alert('Thank you for reaching out, ' + name + '! Your message has been sent successfully.');
+            contactForm.reset();
+            });
+        }
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+        });
+
+        // Typing effect
+        const typingElement = document.querySelector('.typing-effect');
+        const roles = ["Pushpendra Sahu", "a Cloud Engineer", "a DevOps Enthusiast", "a Problem Solver"];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentRole = roles[roleIndex];
+
+            // Update the text content
+            typingElement.innerHTML = `Hi, I'm <span class="name">${currentRole.substring(0, charIndex)}</span>`;
+
+            // Adjust typing speed
+            let typingSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                // Pause before deleting
+                typingSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                // Move to the next role
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+            }
+
+            // Increment or decrement charIndex
+            charIndex += isDeleting ? -1 : 1;
+
+            setTimeout(typeEffect, typingSpeed);
+        }
+
+        // Start the typing effect
+        typeEffect();
+    </script>
+</body>
+</html>
